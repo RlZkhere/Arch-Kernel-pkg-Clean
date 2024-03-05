@@ -1,0 +1,21 @@
+#!/bin/bash
+ultimo=$(ls /var/cache/pacman/pkg/ | sed -n '/^linux/p' | sed -n '/arch/p' | sed -n '/zst$/p'  | tail -1)
+elimina=$(ls /var/cache/pacman/pkg | sed -n '/^linux/p' | sed -n '/arch/p' | sed "/$ultimo/d")
+if [ -z "$elimina" ]
+then
+echo "" > /dev/null
+else
+numero=$(ls /var/cache/pacman/pkg | sed -n '/^linux/p' | sed -n '/arch/p' | sed "/$ultimo/d" | wc -l) 
+for ((j=0 ; j < $numero ; j++)); do
+ls '/var/cache/pacman/pkg/'$elimina 2>>/dev/null
+elimina=$(ls /var/cache/pacman/pkg | sed -n '/^linux/p' | sed -n '/arch/p' | sed "/$ultimo/d")
+if [ $? == 0 ]
+then 
+for ((i = 0 ; i < $numero ; i++));
+do
+sudo rm -r '/var/cache/pacman/pkg/'$elimina 2>> /dev/null
+sleep 0.2;
+done
+fi
+done
+fi
