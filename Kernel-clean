@@ -7,7 +7,7 @@ echo "" > /dev/null
 else
 numero=$(ls /var/cache/pacman/pkg | sed -n '/^linux/p' | sed -n '/arch/p' | sed "/$ultimo/d" | wc -l) 
 for ((j=0 ; j < $numero ; j++)); do
-ls '/var/cache/pacman/pkg/'$elimina 2>>/dev/null
+ls '/var/cache/pacman/pkg/'$elimina 1>>/dev/null 2>>/dev/null
 elimina=$(ls /var/cache/pacman/pkg | sed -n '/^linux/p' | sed -n '/arch/p' | sed "/$ultimo/d")
 if [ $? == 0 ]
 then 
