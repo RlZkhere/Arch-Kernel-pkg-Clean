@@ -1,5 +1,5 @@
 #!/bin/bash
-ultimo=$(ls /var/cache/pacman/pkg/ | sed -n '/^linux/p' | sed -n '/arch/p' | sed -n '/zst$/p'  | tail -1)
+ultimo=$(ls /var/cache/pacman/pkg/ | sed -n '/^linux/p' | sed -n '/arch/p' | sed -n '/zst$/p'  | sed '/headers/d' | tail -1)
 elimina=$(ls /var/cache/pacman/pkg | sed -n '/^linux/p' | sed -n '/arch/p' | sed "/$ultimo/d")
 if [ -z "$elimina" ]
 then
