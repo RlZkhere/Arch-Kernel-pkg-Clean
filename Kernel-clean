@@ -7,10 +7,12 @@ echo "" > /dev/null
 else
 numero=$(ls /var/cache/pacman/pkg | sed -n '/^linux/p' | sed -n '/arch/p' | sed "/$ultimo/d" | wc -l) 
 for ((j=0 ; j < $numero ; j++)); do
-ls '/var/cache/pacman/pkg/'$elimina 1>>/dev/null 2>>/dev/null
+#Each file that match the regex expression will be deleted 
+ls '/var/cache/pacman/pkg/'$elimina 2>>/dev/null
 elimina=$(ls /var/cache/pacman/pkg | sed -n '/^linux/p' | sed -n '/arch/p' | sed "/$ultimo/d")
-if [ $? == 0 ]
-then 
+#SE IL FILE È STATO TROVATO ALLORA PROCEDE AD ELIMINARLO
+if [ $? == 0  ]
+then
 for ((i = 0 ; i < $numero ; i++));
 do
 sudo rm -r '/var/cache/pacman/pkg/'$elimina 2>> /dev/null
